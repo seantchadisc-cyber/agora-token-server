@@ -1,0 +1,12 @@
+name: Keep Render Alive
+on:
+  schedule:
+    - cron: '*/14 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Token Server
+        run: curl -s https://agora-token-server-ysyt.onrender.com/ > /dev/null
