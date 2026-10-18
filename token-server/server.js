@@ -43,6 +43,15 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 10000;
+// Self-ping to stay awake on Render free tier
+const https = require('https');
+setInterval(() => {
+  https.get('https://agora-token-server-ysyt.onrender.com/', (res) => {
+    console.log('Self-ping status:', res.statusCode);
+  }).on('error', (err) => {
+    console.error('Self-ping error:', err.message);
+  });
+}, 10 * 60 * 1000); // Every 10 minutes
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Token server listening on port ${PORT}`);
 });
